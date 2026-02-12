@@ -39,8 +39,19 @@ int * suma(int N1,int *polinomio1,int N2,int *polinomio2,int mayor,int menor,int
     }
     return polinomio3;
 };
-void producto(int N1,int *polinomio1,int N2,int *polinomio2){
-
+int * producto(int N1,int *polinomio1,int N2,int *polinomio2,int grado,int *polinomioM){
+for(int i=grado;i>=0;i--){//grado nuevo polinomio
+    int anterior=0;
+    for(int j=N1;j>=0;j--){
+        for(int k=N2;k>=0;k--){
+            if(i==j+k){
+                anterior=anterior+polinomio1[j]*polinomio2[k];
+            }
+        }
+    }
+    polinomioM[i]=anterior;
+}
+return polinomioM;
 };
 
 
@@ -76,10 +87,18 @@ int main(){
     int *polinomio3=new int[mayor+1];
     suma(N1,polinomio1,N2,polinomio2,mayor,menor,polinomio3);
     imprecion(mayor,polinomio3);
-    cout<<endl;
-    cout<<"El producto de los polinomios es: ";
-    //producto(N1,polinomio1,N2,polinomio2);
 
-    //aca falta su delete
+    cout<<endl;
+
+    cout<<"El producto de los polinomios es: ";
+    int grado=N1+N2;
+    int *polinomioM=new int[grado+1];
+    producto(N1,polinomio1,N2,polinomio2,grado,polinomioM);
+    imprecion(grado,polinomioM);
+
+    delete[] polinomio1;
+    delete[] polinomio2;
+    delete[] polinomio3;
+    delete[] polinomioM;
     return 0;
 }
