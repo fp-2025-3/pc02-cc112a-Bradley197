@@ -25,32 +25,6 @@ void leer(int N, contacto *P){
     }
     cout<<endl;
 }
-//mostras los nacidos en el mismo año
-/*int arreglito(int N,contacto *P,int contador){
-    bool newElemento = true;
-    int* anios = new int [N];
-    anios[0] = P[0].fecha.año;//aca se guarda l primer año ahora buscaremos los demas en caso no halla mas se termina
-    //y si sacamos los ñaos que existen y con ello digo que si son iguales se imprima 
-    for(int i=1;i<N;i++){
-        for(int j=i-1;j>=0;j--){
-            if(P[i].fecha.año!=P[j].fecha.año){
-                newElemento=true;
-            }else{
-                newElemento=false;
-            }
-    }
-    if(newElemento==true){
-        anios[contador]=P[i].fecha.año;
-        contador++;
-    }
-}
-    return anios;
-}*/
-
-
-
-
-
 void mismoAño(int N, contacto *P){
     int contador=1;
     bool newElemento = true;
@@ -80,7 +54,7 @@ void mismoAño(int N, contacto *P){
         }
         cout<<endl;
     }
-
+    delete[] anios;
 }
 
 int main(){
@@ -91,4 +65,6 @@ int main(){
     leer(N,P);
     mismoAño(N,P);
 
-    ret
+    delete[] P;
+    return 0;
+}
