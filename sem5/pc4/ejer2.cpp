@@ -2,162 +2,84 @@
 #include<ctime>
 #include<cstdlib>
 using namespace std;
-struct partidos{
-    int PG;
-    int PE;
-    int PP;
-    int puntajeTotal;
+struct seleccion{
+    char nombre[20];
+    int PG,PE,PP;
+    int GC,GF,DG;
+    int puntos;
     double rendimiento;
 };
-struct goles{
-    int GF;
-    int GC;
-    int DG=GF-GC;
-};
-struct seleccion{
-    char nombre[10];
-    partidos ptj;
-    goles GT;
-
-
-};
-void puntosRepartidos(partidos partidosTotales1){
-    partidosTotales1.PG=rand()%100+1;
-    if(partidosTotales1.PG!=100){
-        partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
-        while(partidosTotales1.PG+partidosTotales1.PE>100){
-            partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
-        }
-        partidosTotales1.PP=100-partidosTotales1.PG-partidosTotales1.PE;
-    }
-    if(partidosTotales1.PG==100){
-        partidosTotales1.PE=0;
-        partidosTotales1.PP=0;
-    }
-    cout<<"PG: "<<partidosTotales1.PG<<endl;
-    cout<<"PP: "<<partidosTotales1.PP<<endl;
-    cout<<"PE: "<<partidosTotales1.PE<<endl;
-    partidosTotales1.puntajeTotal=3*partidosTotales1.PG+partidosTotales1.PP;
-    cout<<"El puntaje total es: "<<partidosTotales1.puntajeTotal<<endl;
-    partidosTotales1.rendimiento=partidosTotales1.puntajeTotal/300;
-    cout<<"El rendimiento es: "<<partidosTotales1.rendimiento<<".42"<<endl;
-    
+void generarPartidos(seleccion &s){
+    s.PG= rand()%101;
+    s.PE= rand()%(101-s.PG);
+    s.PP= 100-s.PG-s.PE;
 }
-int puntosa(partidos partidosTotales1, int a){
-    partidosTotales1.PG=rand()%100+1;
-    if(partidosTotales1.PG!=100){
-        partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
-        while(partidosTotales1.PG+partidosTotales1.PE>100){
-            partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
+void generarGoles(seleccion& s){
+    s.GF=0;
+    s.GC=0;
+    for(int i=0;i<s.PG;i++){
+        int gf,gc;
+        do{
+            gf=rand()%6;
+            gc=rand()%6;
+        }while(gf<=gc);
+        s.GF+=gf;
+        s.GC+=gc;
+    }
+    for(int i=0;i<s.PE;i++){
+        int goles=rand()%6;
+        s.GF+=goles;
+        s.GC+=goles;
+    }
+        for(int i=0;i<s.PP;i++){
+        int gf,gc;
+        do{
+            gf=rand()%6;
+            gc=rand()%6;
+        }while(gf>=gc);
+        s.GF+=gf;
+        s.GC+=gc;
         }
-        partidosTotales1.PP=100-partidosTotales1.PG-partidosTotales1.PE;
-    }
-    if(partidosTotales1.PG==100){
-        partidosTotales1.PE=0;
-        partidosTotales1.PP=0;
-    }
-    a=partidosTotales1.PG;
-    return a;
 
 }
-int puntosb(partidos partidosTotales1, int b){
-    partidosTotales1.PG=rand()%100+1;
-    if(partidosTotales1.PG!=100){
-        partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
-        while(partidosTotales1.PG+partidosTotales1.PE>100){
-            partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
-        }
-        partidosTotales1.PP=100-partidosTotales1.PG-partidosTotales1.PE;
-    }
-    if(partidosTotales1.PG==100){
-        partidosTotales1.PE=0;
-        partidosTotales1.PP=0;
-    }
-    b=partidosTotales1.PP;
-    return b;
-
+void calcularEstadistica(seleccion &s){
+    s.puntos=3*s.PG+s.PE;
+    s.DG=s.GF-s.GC;
+    s.rendimiento=(s.puntos/300.0)*100;
 }
-int puntosc(partidos partidosTotales1, int c){
-    partidosTotales1.PG=rand()%100+1;
-    if(partidosTotales1.PG!=100){
-        partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
-        while(partidosTotales1.PG+partidosTotales1.PE>100){
-            partidosTotales1.PE=(rand()%(100-partidosTotales1.PG))+1;
-        }
-        partidosTotales1.PP=100-partidosTotales1.PG-partidosTotales1.PE;
-    }
-    if(partidosTotales1.PG==100){
-        partidosTotales1.PE=0;
-        partidosTotales1.PP=0;
-    }
-    c=partidosTotales1.PE;
-    return c;
+void ordenar(seleccion v[],int n){
+    for(int i=0;i<n-1;i++){
+        for(int j=0;j<n-1-i;j++){
+            if(v[j].puntos<v[j+1].puntos||(v[j].puntos==v[j+1].puntos&&v[j].DG<v[j+1].DG)||(v[j].puntos==v[j+1].puntos&&v[j].DG==v[j+1].DG&&v[j].GF<v[j+1].GF)){
+                seleccion aux=v[j];
+                v[j]=v[j+1];
+                v[j+1]=aux;
 
-}
-
-void cantGOles(partidos partidosTotales1, goles golesTotales1,int PG,int PP,int PE){
-    golesTotales1.GF=0;
-    golesTotales1.GC=0;
-        for(int k=0;k<PG;k++){
-            int goles1=rand()%5+1;
-            int goles2=rand()%5+1;
-            if(goles1>goles2){
-             golesTotales1.GF=golesTotales1.GF+goles1;
-             golesTotales1.GC=golesTotales1.GC+goles2;
-             
             }
-         
         }
-        for(int m=0;m<PE;m++){
-            int goles1=rand()%5+1;
-            int goles2=rand()%5+1;
-            if(goles1==goles2){
-             golesTotales1.GF=golesTotales1.GF+goles1;
-             golesTotales1.GC=golesTotales1.GC+goles2;
-             
-            }
-         
-        }
-        for(int n=0;n<PP;n++){
-            int goles1=rand()%5+1;
-            int goles2=rand()%5+1;
-            if(goles1<goles2){
-             golesTotales1.GF=golesTotales1.GF+goles1;
-             golesTotales1.GC=golesTotales1.GC+goles2;
-             
-            }
-          
-        }
-    
-    cout<<"La cantidad de goles a favor son: "<<golesTotales1.GF<<endl;
-
-    cout<<"La cantidad de goles en contra son: "<<golesTotales1.GC<<endl;
-
-    cout<<"La diferencia de goles es: "<<golesTotales1.GF-golesTotales1.GC;
-
-
-
+    }
+}
+void mostrar(seleccion v[], int n){
+    cout<<"Seleccion     "<<"PG  PE  PP  GF  GC  DG  PUNTOS  RENDIMIENTO"<<endl;
+    for(int i=0;i<n;i++){
+        cout<<"      "<<v[i].nombre<<"   "<<v[i].PG<<"  "<<v[i].PE<<"  "<<v[i].PP<<"  "<<v[i].GF<<"  "<<v[i].GC<<"  "<<v[i].DG<<"  "<<v[i].puntos<<"  "<<v[i].rendimiento<<endl;
+    }
+    cout<<endl;
+    cout<<"GANADOR WIN WIN: "<<v[0].nombre<<"| PUNTAJE: "<<v[0].puntos<<"| DG: "<<v[0].DG<<"| RENDIMIENTO: "<<v[0].rendimiento<<"%"<<endl;
 }
 int main(){
     srand(time(0));
-    cout<<"SELECCION 1"<<endl;
-    partidos partidosTotales1;
-    //ya tengo los poartidos reopartidos
-    puntosRepartidos(partidosTotales1);
-    //ahora goles;
-    goles golesTotales1;
-    int m;
-    int a=puntosa(partidosTotales1,m);
-    int n;
-    int b=puntosb(partidosTotales1,n);
-    int p;
-    int c=puntosc(partidosTotales1,p);
-    cantGOles(partidosTotales1,golesTotales1,a,b,c);
+    seleccion selecciones[5]={
+        {"PAIS_1"},{"PAIS_2"},{"PAIS_3"},{"PAIS_4"},{"PAIS_5"}
+    };
+    for( int i=0;i<5;i++ ){
+        generarPartidos(selecciones[i]);
+        generarGoles(selecciones[i]);
+        calcularEstadistica(selecciones[i]);
 
-    cout<<"SELECCION 2"<<endl;
-    cout<<"SELECCION 3"<<endl;
-    cout<<"SELECCION 4"<<endl;
-    cout<<"SELECCION 5"<<endl;
+    }
+    ordenar(selecciones,5);
+    mostrar(selecciones,5);
 
     return 0;
 }
