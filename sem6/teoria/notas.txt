@@ -1,0 +1,8 @@
+10 Aldo 11
+11 Hugo 12.3
+Juan 9
+Pedro 11
+Maria 8
+Pablo 12
+Mercedes 13
+Julio 10
