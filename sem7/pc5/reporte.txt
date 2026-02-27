@@ -1,0 +1,18 @@
+---REPORTE GENERAL DE VENTAS---
+Total de registros: 150
+MONTO TOTAL VENDIDO: 
+3.77068e+06
+
+-------------------
+VENDEDOR CON MAYOR RECAUDACIÓN:
+ID Vendedor: 0
+Total vendido: 0
+
+-------------------
+PRODUCTO MÁS VENDIDO: 
+ID Producto: 0
+Total unidades: 0
+
+-----------------------
+VENTAS SOSPECHOSAS: 
+sospechoso 0
