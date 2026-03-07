@@ -1,0 +1,13 @@
+---REPORTE GENERAL DE VENTAS---
+Total de registros: 200
+MONTO TOTAL VENDIDO: 530221
+
+-------------------
+VENDEDOR CON MAYOR RECAUDACION:
+ID Vendedor: 9
+Total vendido: 71382.9
+
+-------------------
+PRODUCTO MAS VENDIDO:
+ID Producto: 14
+Total unidades: 1114

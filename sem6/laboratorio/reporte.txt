@@ -1,0 +1,8 @@
+REPORTE GENERAL
+---------------------
+La cantidad de Estudiantes es: 8
+El promedio general es: 14.375
+La nota mas alta es: 20
+La nota mas baja es: 9
+Cantidad de estudiantes aprovados: 7
+Cantidad de estudiantes desaprovados: 1

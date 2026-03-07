@@ -1,0 +1,17 @@
+# Archivos ejecutables
+ejercicio1
+ejercicio2
+ejercicio3
+ejercicio4
+ejercicio5
+
+# Archivos objeto
+*.o
+*.obj
+
+# Otros ejecutables
+*.exe
+*.out
+
+# makefile (si no quieres subirlo)
+makefile
